@@ -45,5 +45,33 @@ ASSIGNMENT_OPERATOR: ':=';
 
 
 //--- PARSER: ---
-stylesheet: EOF;
+stylesheet: (variable_assignment | css_rule)* EOF;
 
+css_rule: selector OPEN_BRACE (declaration | statement)* CLOSE_BRACE;
+
+selector: LOWER_IDENT
+        | ID_IDENT
+        | CLASS_IDENT;
+
+declaration: LOWER_IDENT COLON (expression | operation) SEMICOLON;
+
+expression: value
+            | variable_reference;
+
+value: COLOR
+     | PIXELSIZE
+     | PERCENTAGE
+     | SCALAR
+     | LOWER_IDENT
+     | TRUE
+     |  FALSE;
+
+variable_reference: CAPITAL_IDENT;
+conditional: IF | ELSE;
+statement: conditional (BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE | ) OPEN_BRACE (declaration | statement)* CLOSE_BRACE;
+
+variable_assignment: CAPITAL_IDENT ASSIGNMENT_OPERATOR value SEMICOLON;
+
+operation: operation MUL operation
+        | operation (PLUS | MIN) operation
+        | expression;
