@@ -70,7 +70,7 @@ variable_reference: CAPITAL_IDENT;
 conditional: IF | ELSE;
 statement: conditional (BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE | ) OPEN_BRACE (declaration | statement)* CLOSE_BRACE;
 
-variable_assignment: CAPITAL_IDENT ASSIGNMENT_OPERATOR value SEMICOLON;
+variable_assignment: CAPITAL_IDENT ASSIGNMENT_OPERATOR (expression | operation) SEMICOLON;
 
 operation: operation MUL operation
         | operation (PLUS | MIN) operation
