@@ -47,7 +47,7 @@ ASSIGNMENT_OPERATOR: ':=';
 //--- PARSER: ---
 stylesheet: (variable_assignment | css_rule)* EOF;
 
-css_rule: selector OPEN_BRACE (declaration | statement)* CLOSE_BRACE;
+css_rule: selector OPEN_BRACE (declaration | statement | variable_assignment)* CLOSE_BRACE;
 
 selector: LOWER_IDENT
         | ID_IDENT
@@ -68,7 +68,7 @@ value: COLOR
 
 variable_reference: CAPITAL_IDENT;
 conditional: IF | ELSE;
-statement: conditional (BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE | ) OPEN_BRACE (declaration | statement)* CLOSE_BRACE;
+statement: conditional (BOX_BRACKET_OPEN expression BOX_BRACKET_CLOSE | ) OPEN_BRACE (declaration | statement | variable_assignment)* CLOSE_BRACE;
 
 variable_assignment: CAPITAL_IDENT ASSIGNMENT_OPERATOR (expression | operation) SEMICOLON;
 
